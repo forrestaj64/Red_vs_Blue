@@ -42,10 +42,10 @@ Machines
 
 Network Topology Diagram 
 
-</images/Network-Diagram >
+</images/Network-Diagram.png >
 
 
-RED TEAM
+--- RED TEAM ---
 
 
 SECURITY ASSESSMENT
@@ -155,10 +155,10 @@ Exploitation 3: Local File Inclusion
     A remote session was achieved on the target machine. Reverse shell available
 
     3.3 Exploitation Evidence
-    Screenshots of exploits </images/LFI-1>  </images/LFI-2>
+    Screenshots of exploits </images/LFI-1.png>  </images/LFI-2.png>
 
 
-Blue Team
+--- BLUE TEAM ---
 
 
 Log Analysis and Attack Characterization
@@ -166,7 +166,7 @@ Log Analysis and Attack Characterization
 
 Analysis: Identifying the Port Scan
 
-</images/PortScan >
+</images/PortScan.png >
 
     ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
 
@@ -175,7 +175,7 @@ Analysis: Identifying the Port Scan
 
 Analysis: Finding the Request for the Hidden Directory
 
-</images/HiddenDir >
+</images/HiddenDir.png >
 
     ● There were 2 requests at 10:59 on Nov 17
 
@@ -184,7 +184,7 @@ Analysis: Finding the Request for the Hidden Directory
 
 Analysis: Uncovering the Brute Force Attack
 
-</images/BruteForceAttack-stats>
+</images/BruteForceAttack-stats.png>
 
 ● 11171 requests were made in the attack
 
@@ -192,20 +192,19 @@ Analysis: Uncovering the Brute Force Attack
 
 Analysis: Finding the WebDAV Connection
 
-Kibana Search -> 
+Kibana Search
 
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
-</images/WebDAV-connection >
+</images/WebDAV-connection.png >
 
     ● Requests made to this directory; count = 30
     
     ● Successful requests were made for the files passwd.dav and shell.php
 
 
-Blue Team
 
-Proposed Alarms and Mitigation Strategies
+Proposed Alarms and Mitigation Strategies - Blue Team
 
 Alarm 
 
@@ -280,6 +279,7 @@ System Hardening
     This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
 
 References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
+
             https://ubuntu.com/server/docs/security-certificates
 
 
@@ -342,6 +342,7 @@ System Hardening
     iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
 
 References: https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-IP-Address-In-IPTables
+
 
 
 Alarm 
