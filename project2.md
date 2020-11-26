@@ -56,15 +56,12 @@ Recon: Describing the Target
 
 Nmap identified the following hosts on the network:
 
-    Hostname      IP Address        Role on Network
-
-    ELK Server    192.168.1.100     ELK Server; 9200/tcp open wap-wsp
-
-    Capstone      192.168.1.105     Capstone Corporate Server; 80/tcp open http
-
-    Kali          192.168.1.90      Pen Test Station; 22/tcp open ssh
-
-    Jump Host     192.168.1.1       Jump Host; 2179/tcp open vmrdp
+Hostname | IP Address | Role on Network 
+------------ | ------------- | -------------
+ELK Server | 192.168.1.100 | ELK Server; 9200/tcp open wap-wsp
+Capstone | 192.168.1.105 | Capstone Corporate Server; 80/tcp open http
+Kali  | 192.168.1.90 | Pen Test Station; 22/tcp open ssh
+Jump Host | 192.168.1.1 | Jump Host; 2179/tcp open vmrdp
 
 
 VULNERABILITY ASSESSMENT
