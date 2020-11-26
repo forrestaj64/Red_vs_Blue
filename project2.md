@@ -42,10 +42,12 @@ Machines
 
 Network Topology Diagram 
 
-https://github.com/forrestaj64/Red_vs_Blue/blob/main/images/Network-Diagram.png
+https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/Network-Diagram.png
+
 
 
 --- RED TEAM ---
+
 
 
 SECURITY ASSESSMENT
@@ -127,7 +129,7 @@ Exploitation 1: WebDAV file disclosure
     Apache version displayed.
 
     1.3 Exploitation Evidence
-    Screenshots </images/WebDav-file-disclosure >
+    Screenshots <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/WebDav-file-disclosure >
 
 Exploitation 2: No account lockout
 
@@ -141,7 +143,7 @@ Exploitation 2: No account lockout
 
     2.3 Exploitation Evidence
     Screenshot of the hydra tool displaying the command executed and results:
-    </images/No-account-lockout >
+    <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/No-account-lockout >
 
 Exploitation 3: Local File Inclusion
 
@@ -155,7 +157,9 @@ Exploitation 3: Local File Inclusion
     A remote session was achieved on the target machine. Reverse shell available
 
     3.3 Exploitation Evidence
-    Screenshots of exploits </images/LFI-1.png>  </images/LFI-2.png>
+    Screenshots of exploits 
+    <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/LFI-1.png>
+    <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/LFI-2.png>
 
 
 --- BLUE TEAM ---
@@ -175,7 +179,7 @@ Analysis: Identifying the Port Scan
 
 Analysis: Finding the Request for the Hidden Directory
 
-</images/HiddenDir.png >
+<https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/HiddenDir.png >
 
     ● There were 2 requests at 10:59 on Nov 17
 
@@ -196,7 +200,7 @@ Kibana Search
 
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
-</images/WebDAV-connection.png >
+<https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/WebDAV-connection.png >
 
     ● Requests made to this directory; count = 30
     
