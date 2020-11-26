@@ -6,18 +6,26 @@ Assessment, Analysis, and Hardening of a Vulnerable System
 Andrew Forrest
 
 Table of Contents
+
+
 This document contains the following sections:
+
+
 01 Network Topology
+
 02 Red Team: Security Assessment
+
 03 Blue Team: Log Analysis and Attack Characterization
+
 04 Hardening: Proposed Alarms and Mitigation Strategies
 
 Network Topology
 
 Network
-Address Range: 192.168.1.0/24
-Netmask:255.255.255.0
-Gateway:192.168.1.1
+
+    Address Range: 192.168.1.0/24
+    Netmask:255.255.255.0
+    Gateway:192.168.1.1
 
 Machines
 
@@ -59,35 +67,32 @@ Jump Host 192.168.1.1 Jump Host
 2179/tcp open vmrdp
 
 Vulnerability Assessment
+
 The assessment uncovered the following critical vulnerabilities in the target:
-Vulnerability Description Impact
 
-CVE- 2007 - 5461
+Vulnerability 1: CVE- 2007 - 5461
 
-Apache Tomcat -'WebDAV'
-Remote File Disclosure
+Description: Apache Tomcat -'WebDAV' Remote File Disclosure
 
-A remote authenticated user could read arbitrary files and write
-request via WebDAV, potential for loss of sensitive data.
+Impact: A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
 
-CVE- 2017 - 15715
+Vulnerability 2: CVE- 2017 - 15715
 
-LFI (Local File Inclusion) allows an attacker to read and likely execute
-files other than those intended to be served by the machine
+Description: LFI (Local File Inclusion) allows an attacker to read and likely execute files other than those intended to be served by the machine
 
-An LFI vulnerability allows attackers to gain access to sensitive credentials
+Impact: An LFI vulnerability allows attackers to gain access to sensitive credentials
 
-CWE 521: Weak Password
+Vulnerability 3: CWE 521: Weak Password
 
-Weak passwords are vulnerable to being matched quickly with commonly available tools.
+Description: Weak passwords are vulnerable to being matched quickly with commonly available tools.
 
-Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
+Impact: Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
 
-CWE 307 : improper restriction of excessive authentication attempts
+Vulnerability 4: CWE 307 : improper restriction of excessive authentication attempts
 
-No password lockout policy in place
+Description: No password lockout policy in place
 
-An attacker is free to continually attempt to guess a password utilising brute force means.
+Impact: An attacker is free to continually attempt to guess a password utilising brute force means.
 
 Exploitation: WebDAV file disclosure
 
@@ -117,16 +122,21 @@ Screenshot of the hydra tool displaying the command executed and results:
 Exploitation: Local File Inclusion
 
 1 Tools & Processes
+
 The Metasploit framework was used to create .php packaged exploits, which were copied to the machine using curl.
+
 A local listener is set up. The php is executed and a session is opened.
 
 02 Achievements
+
 A remote session was achieved on the target machine. Reverse shell available
 
 03 Exploitation Evidence
+
 Screenshots of exploits below:
 
 Blue Team
+
 Log Analysis and Attack Characterization
 
 Analysis: Identifying the Port Scan
@@ -137,8 +147,7 @@ Analysis: Identifying the Port Scan
 Analysis: Finding the Request for the Hidden Directory
 
 ● There were 2 requests at 10:59 on Nov 17
-● connect_to_corp_server is the filename. It contains details on how to connect to the /WebDAV share,
-including a hash ryan's password.
+● connect_to_corp_server is the filename. It contains details on how to connect to the /WebDAV share, including a hash ryan's password.
 
 Analysis: Uncovering the Brute Force Attack
 
@@ -147,13 +156,15 @@ Analysis: Uncovering the Brute Force Attack
 
 Analysis: Finding the WebDAV Connection
 
-Kibana Search:.
+Kibana Search:
+
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
 ● Requests made to this directory; count = 30
 ● Successful requests were made for the files passwd.dav and shell.php
 
 Blue Team
+
 Proposed Alarms and Mitigation Strategies
 
 Alarm 
