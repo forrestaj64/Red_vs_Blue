@@ -42,12 +42,14 @@ Machines
 
 Network Topology Diagram 
 
-</images/ >
+</images/Network-Diagram >
 
 
-Red Team
+RED TEAM
 
-Security Assessment
+
+SECURITY ASSESSMENT
+
 
 Recon: Describing the Target
 
@@ -64,11 +66,12 @@ Nmap identified the following hosts on the network:
     Jump Host     192.168.1.1       Jump Host; 2179/tcp open vmrdp
 
 
-Vulnerability Assessment
+VULNERABILITY ASSESSMENT
 
 The assessment uncovered the following critical vulnerabilities in the target:
 
-Vulnerability 1: CVE- 2007-5461
+Vulnerability 1
+CVE 2007-5461
 
     Description:
     Apache Tomcat -'WebDAV' Remote File Disclosure
@@ -77,7 +80,8 @@ Vulnerability 1: CVE- 2007-5461
     A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
 
 
-Vulnerability 2: CVE- 2017-15715
+Vulnerability 2
+CVE 2017-15715
 
     Description:
 
@@ -89,7 +93,8 @@ Vulnerability 2: CVE- 2017-15715
     An LFI vulnerability allows attackers to gain access to sensitive credentials
 
 
-Vulnerability 3: CWE 521: Weak Password
+Vulnerability 3
+CWE 521: Weak Password
 
     Description:
 
@@ -100,7 +105,8 @@ Vulnerability 3: CWE 521: Weak Password
     Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
 
 
-Vulnerability 4: CWE 307 : improper restriction of excessive authentication attempts
+Vulnerability 4
+CWE 307: Improper restriction of excessive authentication attempts
 
     Description:
 
@@ -121,7 +127,7 @@ Exploitation 1: WebDAV file disclosure
     Apache version displayed.
 
     1.3 Exploitation Evidence
-    Screenshots </images/ >
+    Screenshots </images/WebDav-file-disclosure >
 
 Exploitation 2: No account lockout
 
@@ -134,7 +140,8 @@ Exploitation 2: No account lockout
     The account provides access to the “secret_folder”
 
     2.3 Exploitation Evidence
-    Screenshot of the hydra tool displaying the command executed and results: </images/ >
+    Screenshot of the hydra tool displaying the command executed and results:
+    </images/No-account-lockout >
 
 Exploitation 3: Local File Inclusion
 
@@ -148,7 +155,7 @@ Exploitation 3: Local File Inclusion
     A remote session was achieved on the target machine. Reverse shell available
 
     3.3 Exploitation Evidence
-    Screenshots of exploits </images/ >
+    Screenshots of exploits </images/LFI-1>  </images/LFI-2>
 
 
 Blue Team
@@ -159,7 +166,7 @@ Log Analysis and Attack Characterization
 
 Analysis: Identifying the Port Scan
 
-</images/ >
+</images/PortScan >
 
     ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
 
@@ -168,7 +175,7 @@ Analysis: Identifying the Port Scan
 
 Analysis: Finding the Request for the Hidden Directory
 
-</images/ >
+</images/HiddenDir >
 
     ● There were 2 requests at 10:59 on Nov 17
 
@@ -177,7 +184,7 @@ Analysis: Finding the Request for the Hidden Directory
 
 Analysis: Uncovering the Brute Force Attack
 
-</images/ >
+</images/BruteForceAttack-stats>
 
 ● 11171 requests were made in the attack
 
@@ -189,7 +196,7 @@ Kibana Search ->
 
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
-</images/ >
+</images/WebDAV-connection >
 
     ● Requests made to this directory; count = 30
     
