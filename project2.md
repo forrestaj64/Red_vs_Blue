@@ -1,7 +1,9 @@
 
 Capstone Engagement
 
+
 Assessment, Analysis, and Hardening of a Vulnerable System
+
 
 
 Table of Contents
@@ -49,15 +51,15 @@ Recon: Describing the Target
 
 Nmap identified the following hosts on the network:
 
-Hostname     IP Address      Role on Network
+Hostname      IP Address        Role on Network
 
-ELK Server  192.168.1.100   ELK Server; 9200/tcp open wap-wsp
+ELK Server    192.168.1.100     ELK Server; 9200/tcp open wap-wsp
 
-Capstone    192.168.1.105 C apstone Corporate Server; 80/tcp open http
+Capstone      192.168.1.105     Capstone Corporate Server; 80/tcp open http
 
-Kali        192.168.1.90    Pen Test Station; 22/tcp open ssh
+Kali          192.168.1.90      Pen Test Station; 22/tcp open ssh
 
-Jump Host   192.168.1.1     Jump Host; 2179/tcp open vmrdp
+Jump Host     192.168.1.1       Jump Host; 2179/tcp open vmrdp
 
 
 Vulnerability Assessment
@@ -66,27 +68,39 @@ The assessment uncovered the following critical vulnerabilities in the target:
 
 Vulnerability 1: CVE- 2007-5461
 
-Description: Apache Tomcat -'WebDAV' Remote File Disclosure
+Description:
+Apache Tomcat -'WebDAV' Remote File Disclosure
 
-Impact: A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
+Impact:
+A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
+
 
 Vulnerability 2: CVE- 2017-15715
 
-Description: LFI (Local File Inclusion) allows an attacker to read and likely execute files other than those intended to be served by the machine
+Description:
+LFI (Local File Inclusion) allows an attacker to read and likely execute files other than those intended to be served by the machine
 
-Impact: An LFI vulnerability allows attackers to gain access to sensitive credentials
+Impact:
+An LFI vulnerability allows attackers to gain access to sensitive credentials
+
 
 Vulnerability 3: CWE 521: Weak Password
 
-Description: Weak passwords are vulnerable to being matched quickly with commonly available tools.
+Description:
+Weak passwords are vulnerable to being matched quickly with commonly available tools.
 
-Impact: Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
+Impact:
+Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
+
 
 Vulnerability 4: CWE 307 : improper restriction of excessive authentication attempts
 
-Description: No password lockout policy in place
+Description:
+No password lockout policy in place
 
-Impact: An attacker is free to continually attempt to guess a password utilising brute force means.
+Impact:
+An attacker is free to continually attempt to guess a password utilising brute force means.
+
 
 Exploitation 1: WebDAV file disclosure
 
@@ -125,7 +139,9 @@ Exploitation 3: Local File Inclusion
 3.3 Exploitation Evidence
     Screenshots of exploits </images/ >
 
+
 Blue Team
+
 
 Log Analysis and Attack Characterization
 
@@ -152,7 +168,7 @@ Analysis: Uncovering the Brute Force Attack
 
 Analysis: Finding the WebDAV Connection
 
-Kibana Search:
+Kibana Search -> 
 
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
@@ -160,6 +176,7 @@ source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "htt
 
 ● Requests made to this directory; count = 30
 ● Successful requests were made for the files passwd.dav and shell.php
+
 
 Blue Team
 
@@ -169,12 +186,14 @@ Alarm
 
 Mitigation: Blocking the Port Scan
 
-What kind of alarm can be set to detect future port scans?
+We need to detect future port scans and alarm.
+
 We can monitor the logs of recently dropped packets (iptables) and have a tool action based on the threshold.
 
 I would suggest a threshold of; 10 hits within 60 seconds to activate this alarm.
 
 Inotify-tools is an open source method for monitoring and setting actions
+
 
 System Hardening
 
@@ -195,6 +214,7 @@ It is good practice to drop all traffic by default
     
 however we then need to specify rule chains for permitted services from and to authorised addresses or subnets.
 
+
 Alarm 
 
 Mitigation: Finding the Request for the Hidden Directory
@@ -210,6 +230,7 @@ To make changes persistent, add them to the /etc/audit/audit.rulesfile
     [w: watch. p: permission you want to audit/watch, r for read, w for write, x for execute, a for append. k: keyword for this audit rule]
 
 In this case, the alarm threshold should be 2 hits per day.
+
 
 System Hardening
 
@@ -228,6 +249,7 @@ We then need to configure our applications to use the certificate.
 
 This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
 
+
 Alarm 
 
 Mitigation: Preventing Brute Force Attacks
@@ -238,6 +260,7 @@ With a normal activity level of say 50 requests per hour, the activity may be co
 
 A threshold of 100 requests in a 5 minute period would activate this alarm and not be triggered by our normal activity
 
+
 System Hardening
 
 Blocking brute force attacks on passwords can be accomplished by locking out an account after say three failed requests.
@@ -247,6 +270,7 @@ We should have an enterprise account policy that enforces this (and enforce stro
 Another means is to return an non-standard response to failed logins, return a 200 success code with a page for “failed login”, instead of the standard 401 error.
 
 Also, after a failed login attempt we should prompt the user to answer a secret question. This would prevent even a known password being used at this time.
+
 
 Alarm 
 
@@ -259,6 +283,7 @@ The threshold set to activate this alarm would be based on normal usage.
 For example; if we have 10 users daily and some may request the file (http GET) more than once, I would set the alarm threshold at a count 16 in 10 hours. 
 
 We should alarm on every http PUT request, other than those from an authorised IP address.
+
 
 System Hardening
 
@@ -274,6 +299,7 @@ iptables -A INPUT -s 10.25.44.23 -j ACCEPT.
 
 iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
 
+
 Alarm 
 
 Mitigation: Identifying Reverse Shell Uploads
@@ -288,6 +314,7 @@ A baseline of normal activity and a threshold of normal times 2 would be a reaso
 
 For .php files, we should alert for every attempt; set threshold at 1.
 
+
 System Hardening
 
 We can use specific local configuration to extend the functionality of Apache.
@@ -299,12 +326,13 @@ Specifically to deny a .php file to be run we insert this configuration block in
     <Files *.php>
     deny from all
     </Files>
+    
 
 IMPORTANT
 
-    The Penetration Test uncovered that one employee is using the password of another to access corporate information.
+The Penetration Test uncovered that one employee is using the password of another to access corporate information.
     
-    In line with best-practice, strict role-based access controls should be enforced, including revoking access for those that no longer perform that role.
+In line with best-practice, strict role-based access controls should be enforced, including revoking access for those that no longer perform that role.
 
     Reference: https://owasp.org/www-community/Access_Control
 
