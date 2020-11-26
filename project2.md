@@ -8,13 +8,13 @@ Assessment, Analysis, and Hardening of a Vulnerable System
 
 Table of Contents
 
-01 Network Topology
+    01 Network Topology
 
-02 Red Team: Security Assessment
+    02 Red Team: Security Assessment
 
-03 Blue Team: Log Analysis and Attack Characterization
+    03 Blue Team: Log Analysis and Attack Characterization
 
-04 Hardening: Proposed Alarms and Mitigation Strategies
+    04 Hardening: Proposed Alarms and Mitigation Strategies
 
 Network Topology
 
@@ -117,7 +117,8 @@ Exploitation 1: WebDAV file disclosure
 Exploitation 2: No account lockout
 
     2.1 Tools & Processes
-    The vulnerability was exploited using hydra, a brute force password matching tool. A password list file, rockyou.txt, was downloaded and utilised.
+    The vulnerability was exploited using hydra, a brute force password matching tool.     
+    A password list file, rockyou.txt, was downloaded and utilised.
 
     2.2 Achievements
     The password for the account of ashton was determined in short order.
@@ -129,7 +130,8 @@ Exploitation 2: No account lockout
 Exploitation 3: Local File Inclusion
 
     3.1 Tools & Processes
-    The Metasploit framework was used to create .php packaged exploits, which were copied to the machine using curl.
+    The Metasploit framework was used to create .php packaged exploits, 
+    which were copied to the machine using curl.
 
     A local listener is set up. The php is executed and a session is opened.
 
@@ -145,25 +147,30 @@ Blue Team
 
 Log Analysis and Attack Characterization
 
+
 Analysis: Identifying the Port Scan
 
 </images/ >
 
-● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
-● The activity moved from port to port, indicating that this was a port scan
+    ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
+
+    ● The activity moved from port to port, indicating that this was a port scan
 
 Analysis: Finding the Request for the Hidden Directory
 
 </images/ >
 
-● There were 2 requests at 10:59 on Nov 17
-● connect_to_corp_server is the filename. It contains details on how to connect to the /WebDAV share, including a hash ryan's password.
+    ● There were 2 requests at 10:59 on Nov 17
+
+    ● connect_to_corp_server is the filename. It contains details on how to connect to the /WebDAV share,
+    including a hash of ryan's password.
 
 Analysis: Uncovering the Brute Force Attack
 
 </images/ >
 
 ● 11171 requests were made in the attack
+
 ● 11170 requests had been made before the attacker discovered the password
 
 Analysis: Finding the WebDAV Connection
@@ -174,8 +181,9 @@ source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "htt
 
 </images/ >
 
-● Requests made to this directory; count = 30
-● Successful requests were made for the files passwd.dav and shell.php
+    ● Requests made to this directory; count = 30
+    
+    ● Successful requests were made for the files passwd.dav and shell.php
 
 
 Blue Team
@@ -188,7 +196,8 @@ Alarm
 
     We need to detect future port scans and alarm.
 
-    We can monitor the logs of recently dropped packets (iptables) and have a tool action based on the threshold.
+    We can monitor the logs of recently dropped packets (iptables) and 
+    have a tool take action based on the threshold.
 
     I would suggest a threshold of; 10 hits within 60 seconds to activate this alarm.
 
@@ -212,7 +221,8 @@ System Hardening
         iptables -P FORWARD DROP
         iptables -P OUTPUT DROP
     
-    however we then need to specify rule chains for permitted services from and to authorised addresses or subnets.
+    however we then need to specify rule chains for permitted services from and to 
+    authorised addresses or subnets.
 
 
 Alarm 
@@ -227,7 +237,8 @@ Alarm
         connect_to_corp_server -p war -k
         connect_to_corp
 
-        [w: watch. p: permission you want to audit/watch, r for read, w for write, x for execute, a for append. k: keyword for this audit rule]
+        [w: watch. p: permission you want to audit/watch, r for read, w for write, x for execute, a for append
+        k: keyword for this audit rule]
 
     In this case, the alarm threshold should be 2 hits per day.
 
@@ -254,9 +265,11 @@ Alarm
 
     Mitigation: Preventing Brute Force Attacks
 
-    Brute force attacks involve a high volume of requests. We should establish a baseline of normal activity around a resource and report on volume anomalies.
+    Brute force attacks involve a high volume of requests. 
+    We should establish a baseline of normal activity around a resource and report on volume anomalies.
 
-    With a normal activity level of say 50 requests per hour, the activity may be condensed to a shorter period, especially after a break.
+    With a normal activity level of say 50 requests per hour, the activity may be condensed to a shorter period,
+    especially after a break.
 
     A threshold of 100 requests in a 5 minute period would activate this alarm and not be triggered by our normal activity
 
@@ -267,27 +280,32 @@ System Hardening
 
     We should have an enterprise account policy that enforces this (and enforce stronger passwords). 
 
-    Another means is to return an non-standard response to failed logins, return a 200 success code with a page for “failed login”, instead of the standard 401 error.
+    Another means is to return an non-standard response to failed logins, return a 200 success code with a page for “failed login”,
+    instead of the standard 401 error.
 
-    Also, after a failed login attempt we should prompt the user to answer a secret question. This would prevent even a known password being used at this time.
+    Also, after a failed login attempt we should prompt the user to answer a secret question.
+    This would prevent even a known password being used at this time.
 
 
 Alarm 
 
     Mitigation: Detecting the WebDAV Connection
 
-    Detecting future access to this directory could be accomplished within existing infrastructure using packet beats, with a focus on http requests to /WebDAV or via auditd.
+    Detecting future access to this directory could be accomplished within existing infrastructure using packet beats,
+    with a focus on http requests to /WebDAV or via auditd.
 
     The threshold set to activate this alarm would be based on normal usage. 
 
-    For example; if we have 10 users daily and some may request the file (http GET) more than once, I would set the alarm threshold at a count 16 in 10 hours. 
+    For example; if we have 10 users daily and some may request the file (http GET) more than once,
+    I would set the alarm threshold at a count 16 in 10 hours. 
 
     We should alarm on every http PUT request, other than those from an authorised IP address.
 
 
 System Hardening
 
-    IP whitelisting; setting configuration on the host to control access could be done using an iptables rule set that allows requests and responses only from and to a listed IP.
+    IP whitelisting; setting configuration on the host to control access could be done using an iptables rule set
+    that allows requests and responses only from and to a listed IP.
 
     Whitelist IP address 10.25.44.23
 
@@ -310,7 +328,8 @@ Alarm
 
     We can set an alarm that targets specific file types, being those that are not normal for the shared folder. 
 
-    A baseline of normal activity and a threshold of normal times 2 would be a reasonable threshold at which to activate this alarm.
+    A baseline of normal activity and a threshold of normal times two would be a reasonable threshold
+    at which to activate this alarm.
 
     For .php files, we should alert for every attempt; set threshold at 1.
 
@@ -332,7 +351,8 @@ IMPORTANT
 
     The Penetration Test uncovered that one employee is using the password of another to access corporate information.
 
-    In line with best-practice, strict role-based access controls should be enforced, including revoking access for those that no longer perform that role.
+    In line with best-practice, strict role-based access controls should be enforced,
+    including revoking access for those that no longer perform that role.
 
         Reference: https://owasp.org/www-community/Access_Control
 
