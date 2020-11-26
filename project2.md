@@ -3,13 +3,8 @@ Capstone Engagement
 
 Assessment, Analysis, and Hardening of a Vulnerable System
 
-Andrew Forrest
 
 Table of Contents
-
-
-This document contains the following sections:
-
 
 01 Network Topology
 
@@ -21,9 +16,7 @@ This document contains the following sections:
 
 Network Topology
 
-Network
-
-    Address Range: 192.168.1.0/24
+    Network Address Range: 192.168.1.0/24
     Netmask:255.255.255.0
     Gateway:192.168.1.1
 
@@ -45,9 +38,11 @@ Machines
     OS: Windows 10 Pro
     Hostname: Jump Host
 
-Network Topology
+Network Topology Diagram </images/ >
+
 
 Red Team
+
 Security Assessment
 
 Recon: Describing the Target
