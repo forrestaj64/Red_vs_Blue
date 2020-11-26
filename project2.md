@@ -44,6 +44,7 @@ Network Topology Diagram
 
 https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/Network-Diagram.png
 
+![Network Diagram](/Images/Network-Diagram.png)
 
 
 --- RED TEAM ---
