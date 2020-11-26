@@ -1,12 +1,12 @@
 
-Capstone Engagement
+<h1>Capstone Engagement</h1>
 
 
-Assessment, Analysis, and Hardening of a Vulnerable System
+<h1>Assessment, Analysis, and Hardening of a Vulnerable System</h1>
 
 
 
-Table of Contents
+<h2>Table of Contents</h2>
 
     01 Network Topology
 
@@ -16,13 +16,13 @@ Table of Contents
 
     04 Hardening: Proposed Alarms and Mitigation Strategies
 
-Network Topology
+<h2>Network Topology</h2>
 
     Network Address Range: 192.168.1.0/24
     Netmask:255.255.255.0
     Gateway:192.168.1.1
 
-Machines
+<h2>Machines</h2>
 
     IPv4: 192.168.1.105
     OS: Linux
@@ -40,16 +40,16 @@ Machines
     OS: Windows 10 Pro
     Hostname: Jump Host
 
-Network Topology Diagram 
+<h3>Network Topology Diagram</h3>
 
 ![Network Diagram](/Images/Network-Diagram.png)
 
 
---- RED TEAM ---
+<h1>--- RED TEAM --- </h1>
 
 
 
-SECURITY ASSESSMENT
+<h2>SECURITY ASSESSMENT</h2>
 
 
 Recon: Describing the Target
@@ -64,11 +64,11 @@ Kali  | 192.168.1.90 | Pen Test Station; 22/tcp open ssh
 Jump Host | 192.168.1.1 | Jump Host; 2179/tcp open vmrdp
 
 
-VULNERABILITY ASSESSMENT
+<h2>VULNERABILITY ASSESSMENT</h2>
 
 The assessment uncovered the following critical vulnerabilities in the target:
 
-Vulnerability 1
+<h4>Vulnerability 1<h4>
 CVE 2007-5461
 
     Description:
@@ -78,7 +78,7 @@ CVE 2007-5461
     A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
 
 
-Vulnerability 2
+<h4>Vulnerability 2</h4>
 CVE 2017-15715
 
     Description:
@@ -91,7 +91,7 @@ CVE 2017-15715
     An LFI vulnerability allows attackers to gain access to sensitive credentials
 
 
-Vulnerability 3
+<h4>Vulnerability 3</h4>
 CWE 521: Weak Password
 
     Description:
@@ -103,7 +103,7 @@ CWE 521: Weak Password
     Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
 
 
-Vulnerability 4
+<h4>Vulnerability 4</h4>
 CWE 307: Improper restriction of excessive authentication attempts
 
     Description:
@@ -115,7 +115,7 @@ CWE 307: Improper restriction of excessive authentication attempts
     An attacker is free to continually attempt to guess a password utilising brute force means.
 
 
-Exploitation 1: WebDAV file disclosure
+<h4>Exploitation 1: WebDAV file disclosure</h4>
 
     1.1 Tools & Processes
     With the access credentials known, we authenticated via browser and the files in WebDAV were available.
@@ -129,7 +129,7 @@ Exploitation 1: WebDAV file disclosure
   ![WebDAV file disclosure](/Images/WebDav-file-disclosure.png)
     
 
-Exploitation 2: No account lockout
+<h4>Exploitation 2: No account lockout</h4>
 
     2.1 Tools & Processes
     The vulnerability was exploited using hydra, a brute force password matching tool.     
@@ -146,7 +146,7 @@ Exploitation 2: No account lockout
   ![No account lockout](/Images/No-account-lockout.png)
     
 
-Exploitation 3: Local File Inclusion
+<h4>Exploitation 3: Local File Inclusion</h4>
 
     3.1 Tools & Processes
     The Metasploit framework was used to create .php packaged exploits, 
@@ -166,13 +166,13 @@ Exploitation 3: Local File Inclusion
     
 
 
---- BLUE TEAM ---
+<h1>--- BLUE TEAM --- </h1>
 
 
-Log Analysis and Attack Characterization
+<h2>Log Analysis and Attack Characterization</h2>
 
 
-Analysis: Identifying the Port Scan
+<h4>Analysis: Identifying the Port Scan</h4>
 
 ![Port Scan](/Images/PortScan.png)
 
@@ -181,7 +181,7 @@ Analysis: Identifying the Port Scan
     ● The activity moved from port to port, indicating that this was a port scan
     
 
-Analysis: Finding the Request for the Hidden Directory
+<h4>Analysis: Finding the Request for the Hidden Directory</h4>
 
 ![Request for the Hidden Directory](/Images/HiddenDir.png)
 
@@ -190,7 +190,7 @@ Analysis: Finding the Request for the Hidden Directory
     ● connect_to_corp_server is the filename. It contains details on how to connect to the /WebDAV share,
     including a hash of ryan's password.
 
-Analysis: Uncovering the Brute Force Attack
+<h4>Analysis: Uncovering the Brute Force Attack</h4>
 
 ![Brute Force Attack](/Images/BruteForceAttack-stats.png)
 
@@ -198,7 +198,7 @@ Analysis: Uncovering the Brute Force Attack
 
 ● 11170 requests had been made before the attacker discovered the password
 
-Analysis: Finding the WebDAV Connection
+<h4>Analysis: Finding the WebDAV Connection</h4>
 
 Kibana Search
 
@@ -212,9 +212,9 @@ source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "htt
 
 
 
-Proposed Alarms and Mitigation Strategies - Blue Team
+<h2>Proposed Alarms and Mitigation Strategies - Blue Team </h2>
 
-Alarm 
+<h4>Alarm </h4>
 
     Mitigation: Blocking the Port Scan
 
@@ -228,7 +228,7 @@ Alarm
     Inotify-tools is an open source method for monitoring and setting actions
 
 
-System Hardening
+<h4>System Hardening</h4>
 
     Linux iptables can be configured to DROP tcp packets based on the threshold;
 
@@ -251,7 +251,7 @@ System Hardening
 References: https://meterpreter.org/how-to-prevent-port-scan-in-linux/
 
 
-Alarm 
+<h4>Alarm </h4>
 
     Mitigation: Finding the Request for the Hidden Directory
 
@@ -270,7 +270,7 @@ Alarm
     In this case, the alarm threshold should be 2 hits per day.
 
 
-System Hardening
+<h4>System Hardening</h4>
 
     Requiring simply a username / password combination is not adequate.
 
@@ -291,7 +291,7 @@ References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
             https://ubuntu.com/server/docs/security-certificates
 
 
-Alarm 
+<h4>Alarm </h4>
 
     Mitigation: Preventing Brute Force Attacks
 
@@ -304,7 +304,7 @@ Alarm
     A threshold of 100 requests per 5 minute period would activate this alarm and not be triggered by normal activity.
 
 
-System Hardening
+<h4>System Hardening</h4>
 
     Blocking brute force attacks on passwords can be accomplished by locking out an account after say three failed requests.
 
@@ -319,7 +319,7 @@ System Hardening
 References: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
 
 
-Alarm 
+<h4>Alarm</h4>
 
     Mitigation: Detecting the WebDAV Connection
 
@@ -334,7 +334,7 @@ Alarm
     We should alarm on every http PUT request, other than those from an authorised IP address.
 
 
-System Hardening
+<h4>System Hardening</h4>
 
     IP whitelisting; setting configuration on the host to control access could be done using an iptables rule set
     that allows requests and responses only from and to a listed IP.
@@ -353,7 +353,7 @@ References: https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-I
 
 
 
-Alarm 
+<h4>Alarm </h4>
 
     Mitigation: Identifying Reverse Shell Uploads
 
@@ -369,7 +369,7 @@ Alarm
     For .php files, we should alert for every attempt; set threshold at 1.
 
 
-System Hardening
+<h4>System Hardening</h4>
 
     We can use specific local configuration to extend the functionality of Apache.
 
@@ -386,7 +386,7 @@ References:	https://serverfault.com/questions/677633/how-can-i-disable-specific-
             http://www.htaccess-guide.com/  
 
 
-IMPORTANT
+<h3>IMPORTANT</h3>
 
     The Penetration Test uncovered that one employee is using the password of another to access corporate information.
 
@@ -395,6 +395,6 @@ IMPORTANT
 
     Reference: https://owasp.org/www-community/Access_Control
 
-END
+<h3>END</h3>
 
 
