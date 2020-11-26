@@ -40,7 +40,7 @@
     OS: Windows 10 Pro
     Hostname: Jump Host
 
-<h3>Network Topology Diagram</h3>
+<h4>Network Topology Diagram</h4>
 
 ![Network Diagram](/Images/Network-Diagram.png)
 
@@ -52,7 +52,7 @@
 <h2>SECURITY ASSESSMENT</h2>
 
 
-Recon: Describing the Target
+<h3>Recon: Describing the Target</h3>
 
 Nmap identified the following hosts on the network:
 
@@ -66,10 +66,10 @@ Jump Host | 192.168.1.1 | Jump Host; 2179/tcp open vmrdp
 
 <h2>VULNERABILITY ASSESSMENT</h2>
 
-The assessment uncovered the following critical vulnerabilities in the target:
+The assessment uncovered the following **critical** vulnerabilities in the target:
 
 <h4>Vulnerability 1<h4>
-CVE 2007-5461
+**CVE 2007-5461**
 
     Description:
     Apache Tomcat -'WebDAV' Remote File Disclosure
@@ -79,7 +79,7 @@ CVE 2007-5461
 
 
 <h4>Vulnerability 2</h4>
-CVE 2017-15715
+**CVE 2017-15715**
 
     Description:
 
@@ -92,7 +92,7 @@ CVE 2017-15715
 
 
 <h4>Vulnerability 3</h4>
-CWE 521: Weak Password
+**CWE 521: Weak Password**
 
     Description:
 
@@ -104,7 +104,7 @@ CWE 521: Weak Password
 
 
 <h4>Vulnerability 4</h4>
-CWE 307: Improper restriction of excessive authentication attempts
+**CWE 307: Improper restriction of excessive authentication attempts**
 
     Description:
 
@@ -176,7 +176,7 @@ CWE 307: Improper restriction of excessive authentication attempts
 
 ![Port Scan](/Images/PortScan.png)
 
-    ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
+    ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.90
 
     ● The activity moved from port to port, indicating that this was a port scan
     
@@ -202,7 +202,7 @@ CWE 307: Improper restriction of excessive authentication attempts
 
 Kibana Search
 
-source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
+*source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"*
 
 ![The WebDAV Connection](/Images/WebDAV-connection.png)
 
@@ -248,7 +248,7 @@ source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "htt
     however we then need to specify rule chains for permitted services from and to 
     authorised addresses or subnets.
 
-References: https://meterpreter.org/how-to-prevent-port-scan-in-linux/
+Reference: https://meterpreter.org/how-to-prevent-port-scan-in-linux/
 
 
 <h4>Alarm </h4>
@@ -316,7 +316,7 @@ References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
     Also, after a failed login attempt we should prompt the user to answer a secret question.
     This would prevent even a known password being used at this time.
 
-References: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
+Reference: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
 
 
 <h4>Alarm</h4>
