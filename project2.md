@@ -46,32 +46,31 @@ Red Team
 Security Assessment
 
 Recon: Describing the Target
+
 Nmap identified the following hosts on the network:
-Hostname IP Address Role on Network
 
-ELK Server 192.168.1.100 ELK Server
-9200/tcp open wap-wsp
+Hostname     IP Address      Role on Network
 
-Capstone 192.168.1.105 Capstone Corporate Server
-80/tcp open http
+ELK Server  192.168.1.100   ELK Server; 9200/tcp open wap-wsp
 
-Kali 192.168.1.90 Pen Test Station
-22/tcp open ssh
 
-Jump Host 192.168.1.1 Jump Host
-2179/tcp open vmrdp
+Capstone    192.168.1.105 C apstone Corporate Server; 80/tcp open http
+
+Kali        192.168.1.90    Pen Test Station; 22/tcp open ssh
+
+Jump Host   192.168.1.1     Jump Host; 2179/tcp open vmrdp
 
 Vulnerability Assessment
 
 The assessment uncovered the following critical vulnerabilities in the target:
 
-Vulnerability 1: CVE- 2007 - 5461
+Vulnerability 1: CVE- 2007-5461
 
 Description: Apache Tomcat -'WebDAV' Remote File Disclosure
 
 Impact: A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
 
-Vulnerability 2: CVE- 2017 - 15715
+Vulnerability 2: CVE- 2017-15715
 
 Description: LFI (Local File Inclusion) allows an attacker to read and likely execute files other than those intended to be served by the machine
 
@@ -95,40 +94,36 @@ Exploitation: WebDAV file disclosure
 With the access credentials known, we authenticated via browser and the files in WebDAV were available.
 
 2 Achievements
-Detail of a secure password contained in passwd.dav exposed remotely.
-Apache version displayed.
+    Detail of a secure password contained in passwd.dav exposed remotely.
+    Apache version displayed.
 
 3 Exploitation Evidence
-Screenshots below;
+    Screenshots </images/ >
 
 Exploitation: No account lockout
 
 1 Tools & Processes
-The vulnerability was exploited using hydra, a brute force password matching
-tool. A password list file, rockyou.txt, was downloaded and utilised.
+    The vulnerability was exploited using hydra, a brute force password matching tool. A password list file, rockyou.txt, was downloaded and utilised.
 
 2 Achievements
-The password for the account of ashton was determined in short order.
-The account provides access to the “secret_folder”
+    The password for the account of ashton was determined in short order.
+    The account provides access to the “secret_folder”
 
 3 Exploitation Evidence
-Screenshot of the hydra tool displaying the command executed and results:
+    Screenshot of the hydra tool displaying the command executed and results: </images/ >
 
 Exploitation: Local File Inclusion
 
 1 Tools & Processes
+    The Metasploit framework was used to create .php packaged exploits, which were copied to the machine using curl.
 
-The Metasploit framework was used to create .php packaged exploits, which were copied to the machine using curl.
+    A local listener is set up. The php is executed and a session is opened.
 
-A local listener is set up. The php is executed and a session is opened.
+2 Achievements
+    A remote session was achieved on the target machine. Reverse shell available
 
-02 Achievements
-
-A remote session was achieved on the target machine. Reverse shell available
-
-03 Exploitation Evidence
-
-Screenshots of exploits below:
+3 Exploitation Evidence
+    Screenshots of exploits </images/ >
 
 Blue Team
 
@@ -136,15 +131,21 @@ Log Analysis and Attack Characterization
 
 Analysis: Identifying the Port Scan
 
+</images/ >
+
 ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
 ● The activity moved from port to port, indicating that this was a port scan
 
 Analysis: Finding the Request for the Hidden Directory
 
+</images/ >
+
 ● There were 2 requests at 10:59 on Nov 17
 ● connect_to_corp_server is the filename. It contains details on how to connect to the /WebDAV share, including a hash ryan's password.
 
 Analysis: Uncovering the Brute Force Attack
+
+</images/ >
 
 ● 11171 requests were made in the attack
 ● 11170 requests had been made before the attacker discovered the password
@@ -155,6 +156,8 @@ Kibana Search:
 
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
+</images/ >
+
 ● Requests made to this directory; count = 30
 ● Successful requests were made for the files passwd.dav and shell.php
 
@@ -163,6 +166,7 @@ Blue Team
 Proposed Alarms and Mitigation Strategies
 
 Alarm 
+
 Mitigation: Blocking the Port Scan
 
 What kind of alarm can be set to detect future port scans?
@@ -173,8 +177,9 @@ I would suggest a threshold of; 10 hits within 60 seconds to activate this alarm
 Inotify-tools is an open source method for monitoring and setting actions
 
 System Hardening
-Linux iptables can be configured to DROP
-tcp packets based on the threshold;
+
+Linux iptables can be configured to DROP tcp packets based on the threshold;
+
 $IPT -A INPUT -p tcp –syn -m recent
 
     name portscan –rcheck –seconds 60
@@ -182,78 +187,85 @@ $IPT -A INPUT -p tcp –syn -m recent
     $IPT -A INPUT -p tcp –syn -m recent
     name portscan –set -j DROP
 
-It is good practice to drop all traffic by
-default
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
-iptables -P OUTPUT DROP
-however we then need to specify rule
-chains for permitted services from and to
-authorised addresses or subnets.
+It is good practice to drop all traffic by default
+
+    iptables -P INPUT DROP
+    iptables -P FORWARD DROP
+    iptables -P OUTPUT DROP
+    
+however we then need to specify rule chains for permitted services from and to authorised addresses or subnets.
 
 Alarm 
+
 Mitigation: Finding the Request for the Hidden Directory
 
 We could set an alarm with audit.d to inform us when this file is accessed in future.
+
 To make changes persistent, add them to the /etc/audit/audit.rulesfile
 
     w company_folders/secret_folder/
     connect_to_corp_server -p war -k
     connect_to_corp
-    w: watch.
-    p: permission you want to audit/watch, r for read, w
-    for write, x for execute, a for append.
-    k: keyword for this audit rule
+    
+    [w: watch. p: permission you want to audit/watch, r for read, w for write, x for execute, a for append. k: keyword for this audit rule]
 
-In this case, the alarm threshold should be 2 per day.
+In this case, the alarm threshold should be 2 hits per day.
 
 System Hardening
+
 Requiring simply a username / password combination is not adequate.
+
 We should adopt certificate based authentication for the hidden directory.
+
 Only clients with a valid certificate installed will then be able to access the hidden directory.
 
-openssl x509 -req -days 365 -in server.csr -
-signkey server.key -out server.crt
-sudo cp server.crt /etc/ssl/certs
-sudo cp server.key /etc/ssl/private
+    openssl x509 -req -days 365 -in server.csr -
+    signkey server.key -out server.crt
+    sudo cp server.crt /etc/ssl/certs
+    sudo cp server.key /etc/ssl/private
 
-We then need to configure our applications to use the certificate. This will also make
-the application traffic run with a secure protocol; https with SSL/TLS encryption
+We then need to configure our applications to use the certificate. 
+
+This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
 
 Alarm 
+
 Mitigation: Preventing Brute Force Attacks
 
-Brute force attacks involve a high volume of requests. We should establish a
-baseline of normal activity around a resource and report on volume anomalies.
-With a normal activity level of say 50 requests per hour, the activity may be
-condensed to a shorter period, especially after a break. A threshold of 100 requests
-in a 5 minute period would activate this alarm and not be triggered by our normal activity
+Brute force attacks involve a high volume of requests. We should establish a baseline of normal activity around a resource and report on volume anomalies.
+
+With a normal activity level of say 50 requests per hour, the activity may be condensed to a shorter period, especially after a break.
+
+A threshold of 100 requests in a 5 minute period would activate this alarm and not be triggered by our normal activity
 
 System Hardening
-Blocking brute force attacks on passwords can be accomplished by locking out an
-account after say three failed requests. We should have an enterprise account policy
-that enforces this (and enforce stronger passwords). Another means is to return
-an non-standard response to failed logins, return a 200 success code with a page for
-“failed login”, instead of the standard 401 error. Also, after a failed login attempt we
-should prompt the user to answer a secret question. This would prevent even a
-known password being used at this time.
+
+Blocking brute force attacks on passwords can be accomplished by locking out an account after say three failed requests.
+
+We should have an enterprise account policy that enforces this (and enforce stronger passwords). 
+
+Another means is to return an non-standard response to failed logins, return a 200 success code with a page for “failed login”, instead of the standard 401 error.
+
+Also, after a failed login attempt we should prompt the user to answer a secret question. This would prevent even a known password being used at this time.
 
 Alarm 
+
 Mitigation: Detecting the WebDAV Connection
 
-Detecting future access to this directory could be accomplished within existing
-infrastructure using packet beats, with a focus on http requests to /WebDAV or via
-auditd.
-The threshold set to activate this alarm would be based on normal usage. For
-example; if we have 10 users daily and some may request the file (http GET) more
-than once, I would set the alarm threshold at a count 16 in 10 hours. We should alarm
-on every http PUT request, other than those from an authorised IP address.
+Detecting future access to this directory could be accomplished within existing infrastructure using packet beats, with a focus on http requests to /WebDAV or via auditd.
+
+The threshold set to activate this alarm would be based on normal usage. 
+
+For example; if we have 10 users daily and some may request the file (http GET) more than once, I would set the alarm threshold at a count 16 in 10 hours. 
+
+We should alarm on every http PUT request, other than those from an authorised IP address.
 
 System Hardening
-IP whitelisting; setting configuration on the host to control access could be done using
-an iptables rule set that allows requests and responses only from and to a listed IP.
+
+IP whitelisting; setting configuration on the host to control access could be done using an iptables rule set that allows requests and responses only from and to a listed IP.
 
 Whitelist IP address 10.25.44.23
+
 - allow incoming connections from workstation IP
 
 iptables -A INPUT -s 10.25.44.23 -j ACCEPT.
@@ -263,27 +275,38 @@ iptables -A INPUT -s 10.25.44.23 -j ACCEPT.
 iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
 
 Alarm 
+
 Mitigation: Identifying Reverse Shell Uploads
 
 Setting an alarm -assuming the upload is rare, we should alert on every http PUT request. 
+
 Where uploads are routine, every http PUT request from an unauthorised IP address should alarm.
+
 We can set an alarm that targets specific file types, being those that are not normal for the shared folder. 
+
 A baseline of normal activity and a threshold of normal times 2 would be a reasonable threshold at which to activate this alarm.
+
 For .php files, we should alert for every attempt; set threshold at 1.
 
 System Hardening
+
 We can use specific local configuration to extend the functionality of Apache.
+
 Placing a configured .htaccess file in a web server directory will affect all files, folders and sub-directories.
+
 Specifically to deny a .php file to be run we insert this configuration block into our .htaccess file
 
-<Files *.php>
-deny from all
-</Files>
+    <Files *.php>
+    deny from all
+    </Files>
 
 IMPORTANT
-The Penetration Test uncovered that one employee is using the password of another to access corporate information.
-In line with best-practice, strict role-based access controls should be enforced, including revoking access for those that no longer perform that role.
 
-Reference: https://owasp.org/www-community/Access_Control
-End of Presentation
+    The Penetration Test uncovered that one employee is using the password of another to access corporate information.
+    
+    In line with best-practice, strict role-based access controls should be enforced, including revoking access for those that no longer perform that role.
+
+    Reference: https://owasp.org/www-community/Access_Control
+
+End
 
