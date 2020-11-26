@@ -248,7 +248,8 @@ Kibana Search
     however we then need to specify rule chains for permitted services from and to 
     authorised addresses or subnets.
 
-Reference: https://meterpreter.org/how-to-prevent-port-scan-in-linux/
+Reference:
+    https://meterpreter.org/how-to-prevent-port-scan-in-linux/
 
 
 <h4>Alarm </h4>
@@ -287,8 +288,10 @@ Reference: https://meterpreter.org/how-to-prevent-port-scan-in-linux/
 
     This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
 
-References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
-            https://ubuntu.com/server/docs/security-certificates
+References:	
+    https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
+
+    https://ubuntu.com/server/docs/security-certificates
 
 
 <h4>Alarm </h4>
@@ -316,7 +319,8 @@ References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
     Also, after a failed login attempt we should prompt the user to answer a secret question.
     This would prevent even a known password being used at this time.
 
-Reference: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
+Reference:
+    https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
 
 
 <h4>Alarm</h4>
@@ -349,7 +353,8 @@ Reference: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
 
     iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
 
-References: https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-IP-Address-In-IPTables
+Reference: 
+    https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-IP-Address-In-IPTables
 
 
 
@@ -382,8 +387,9 @@ References: https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-I
         </Files>
  
  
-References:	https://serverfault.com/questions/677633/how-can-i-disable-specific-file-type-uploads-globally-in-apache
-            http://www.htaccess-guide.com/  
+References:	
+    https://serverfault.com/questions/677633/how-can-i-disable-specific-file-type-uploads-globally-in-apache
+    http://www.htaccess-guide.com/  
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h3>IMPORTANT</h3>
