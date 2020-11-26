@@ -129,7 +129,7 @@ Exploitation 1: WebDAV file disclosure
 
     1.3 Exploitation Evidence
     
-  ![WebDAV file disclosure](/Images/WebDav-file-disclosure)
+  ![WebDAV file disclosure](/Images/WebDav-file-disclosure.png)
     
 
 Exploitation 2: No account lockout
@@ -143,8 +143,10 @@ Exploitation 2: No account lockout
     The account provides access to the “secret_folder”
 
     2.3 Exploitation Evidence
+    
     Screenshot of the hydra tool displaying the command executed and results:
-  ![No account lockout](/Images/No-account-lockout)
+    
+  ![No account lockout](/Images/No-account-lockout.png)
     
 
 Exploitation 3: Local File Inclusion
@@ -159,7 +161,9 @@ Exploitation 3: Local File Inclusion
     A remote session was achieved on the target machine. Reverse shell available
 
     3.3 Exploitation Evidence
+    
     Screenshots of exploits 
+    
   ![(i) Local File Inclusion](/Images/LFI-1.png)
   ![(ii) Local File Inclusion](/Images/LFI-2.png)
     
@@ -191,7 +195,7 @@ Analysis: Finding the Request for the Hidden Directory
 
 Analysis: Uncovering the Brute Force Attack
 
-</images/BruteForceAttack-stats.png>
+![Brute Force Attack](/Images/BruteForceAttack-stats.png)
 
 ● 11171 requests were made in the attack
 
@@ -262,8 +266,9 @@ Alarm
         connect_to_corp_server -p war -k
         connect_to_corp
 
-        [w: watch. p: permission you want to audit/watch, r for read, w for write, x for execute, a for append
-        k: keyword for this audit rule]
+        # w: watch. 
+        # p: permission you want to audit/watch, r for read, w for write, x for execute, a for append
+        # k: keyword for this audit rule
 
     In this case, the alarm threshold should be 2 hits per day.
 
