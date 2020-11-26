@@ -40,7 +40,9 @@ Machines
     OS: Windows 10 Pro
     Hostname: Jump Host
 
-Network Topology Diagram </images/ >
+Network Topology Diagram 
+
+</images/ >
 
 
 Red Team
@@ -68,38 +70,45 @@ The assessment uncovered the following critical vulnerabilities in the target:
 
 Vulnerability 1: CVE- 2007-5461
 
-Description:
-Apache Tomcat -'WebDAV' Remote File Disclosure
+    Description:
+    Apache Tomcat -'WebDAV' Remote File Disclosure
 
-Impact:
-A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
+    Impact:
+    A remote authenticated user could read arbitrary files and write request via WebDAV, potential for loss of sensitive data.
 
 
 Vulnerability 2: CVE- 2017-15715
 
-Description:
-LFI (Local File Inclusion) allows an attacker to read and likely execute files other than those intended to be served by the machine
+    Description:
 
-Impact:
-An LFI vulnerability allows attackers to gain access to sensitive credentials
+    Local File Inclusion (LFI)
+    allows an attacker to read and likely execute files other than those intended to be served by the machine
+
+    Impact:
+
+    An LFI vulnerability allows attackers to gain access to sensitive credentials
 
 
 Vulnerability 3: CWE 521: Weak Password
 
-Description:
-Weak passwords are vulnerable to being matched quickly with commonly available tools.
+    Description:
 
-Impact:
-Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
+    Weak passwords are vulnerable to being matched quickly with commonly available tools.
+
+    Impact:
+
+    Accounts are vulnerable to being exploited and providing attackers authenticated access to the network.
 
 
 Vulnerability 4: CWE 307 : improper restriction of excessive authentication attempts
 
-Description:
-No password lockout policy in place
+    Description:
 
-Impact:
-An attacker is free to continually attempt to guess a password utilising brute force means.
+    No password lockout policy in place
+
+    Impact:
+
+    An attacker is free to continually attempt to guess a password utilising brute force means.
 
 
 Exploitation 1: WebDAV file disclosure
@@ -155,6 +164,7 @@ Analysis: Identifying the Port Scan
     ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
 
     ● The activity moved from port to port, indicating that this was a port scan
+    
 
 Analysis: Finding the Request for the Hidden Directory
 
@@ -194,7 +204,7 @@ Alarm
 
     Mitigation: Blocking the Port Scan
 
-    We need to detect future port scans and alarm.
+    We need to detect future port scans and alarm on detection.
 
     We can monitor the logs of recently dropped packets (iptables) and 
     have a tool take action based on the threshold.
@@ -223,6 +233,8 @@ System Hardening
     
     however we then need to specify rule chains for permitted services from and to 
     authorised addresses or subnets.
+
+References: https://meterpreter.org/how-to-prevent-port-scan-in-linux/
 
 
 Alarm 
@@ -260,6 +272,9 @@ System Hardening
 
     This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
 
+References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
+            https://ubuntu.com/server/docs/security-certificates
+
 
 Alarm 
 
@@ -271,7 +286,7 @@ Alarm
     With a normal activity level of say 50 requests per hour, the activity may be condensed to a shorter period,
     especially after a break.
 
-    A threshold of 100 requests in a 5 minute period would activate this alarm and not be triggered by our normal activity
+    A threshold of 100 requests per 5 minute period would activate this alarm and not be triggered by normal activity.
 
 
 System Hardening
@@ -280,11 +295,13 @@ System Hardening
 
     We should have an enterprise account policy that enforces this (and enforce stronger passwords). 
 
-    Another means is to return an non-standard response to failed logins, return a 200 success code with a page for “failed login”,
-    instead of the standard 401 error.
+    Another means is to return an non-standard response to failed logins, return a 200 success code with a page for
+    “failed login”, instead of the standard 401 error.
 
     Also, after a failed login attempt we should prompt the user to answer a secret question.
     This would prevent even a known password being used at this time.
+
+References: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
 
 
 Alarm 
@@ -317,6 +334,8 @@ System Hardening
 
     iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
 
+References: https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-IP-Address-In-IPTables
+
 
 Alarm 
 
@@ -345,7 +364,11 @@ System Hardening
         <Files *.php>
         deny from all
         </Files>
-    
+ 
+ 
+References:	https://serverfault.com/questions/677633/how-can-i-disable-specific-file-type-uploads-globally-in-apache
+            http://www.htaccess-guide.com/  
+
 
 IMPORTANT
 
@@ -354,7 +377,7 @@ IMPORTANT
     In line with best-practice, strict role-based access controls should be enforced,
     including revoking access for those that no longer perform that role.
 
-        Reference: https://owasp.org/www-community/Access_Control
+    Reference: https://owasp.org/www-community/Access_Control
 
 END
 
