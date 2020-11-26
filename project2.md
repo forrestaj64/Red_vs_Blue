@@ -1,9 +1,11 @@
 
 <h1>Capstone Engagement</h1>
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <h1>Assessment, Analysis, and Hardening of a Vulnerable System</h1>
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 <h2>Table of Contents</h2>
@@ -15,42 +17,37 @@
     03 Blue Team: Log Analysis and Attack Characterization
 
     04 Hardening: Proposed Alarms and Mitigation Strategies
-
+<p>&nbsp;</p>
 <h2>Network Topology</h2>
+<p>&nbsp;</p>
+<h4>Network Topology Diagram</h4>
+
+![Network Diagram](/Images/Network-Diagram.png)
+<p>&nbsp;</p>
+<h4>Subnet</h4>
 
     Network Address Range: 192.168.1.0/24
     Netmask:255.255.255.0
     Gateway:192.168.1.1
+    
+<p>&nbsp;</p>
+<h4>Machines</h4>
 
-<h2>Machines</h2>
+IPv4 | OS | Hostname 
+------------ | ------------- | -------------
+192.168.1.1 | Windows 10 Pro | Jump Host
+192.168.1.90 | Kali Linux | Kali
+192.168.1.100 | Linux | ELK
+192.168.1.105 | Linux | Capstone
 
-    IPv4: 192.168.1.105
-    OS: Linux
-    Hostname:Capstone
-
-    IPv4: 192.168.1.100
-    OS: Linux
-    Hostname: ELK
-
-    IPv4: 192.168.1.90
-    OS: Kali Linux
-    Hostname: Kali
-
-    IPv4: 192.168.1.
-    OS: Windows 10 Pro
-    Hostname: Jump Host
-
-<h4>Network Topology Diagram</h4>
-
-![Network Diagram](/Images/Network-Diagram.png)
-
-
-<h1>--- RED TEAM --- </h1>
-
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1><- RED TEAM -></h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <h2>SECURITY ASSESSMENT</h2>
-
+<p>&nbsp;</p>
 
 <h3>Recon: Describing the Target</h3>
 
@@ -63,9 +60,9 @@ Capstone | 192.168.1.105 | Capstone Corporate Server; 80/tcp open http
 Kali  | 192.168.1.90 | Pen Test Station; 22/tcp open ssh
 Jump Host | 192.168.1.1 | Jump Host; 2179/tcp open vmrdp
 
-
+<p>&nbsp;</p>
 <h2>VULNERABILITY ASSESSMENT</h2>
-
+<p>&nbsp;</p>
 The assessment uncovered the following **critical** vulnerabilities in the target:
 
 <h4>Vulnerability 1<h4>
@@ -165,12 +162,13 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
   ![(ii) Local File Inclusion](/Images/LFI-2.png)
     
 
-
-<h1>--- BLUE TEAM --- </h1>
-
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1><- BLUE TEAM -> </h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <h2>Log Analysis and Attack Characterization</h2>
-
+<p>&nbsp;</p>
 
 <h4>Analysis: Identifying the Port Scan</h4>
 
@@ -384,8 +382,8 @@ References: https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-I
  
 References:	https://serverfault.com/questions/677633/how-can-i-disable-specific-file-type-uploads-globally-in-apache
             http://www.htaccess-guide.com/  
-
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <h3>IMPORTANT</h3>
 
     The Penetration Test uncovered that one employee is using the password of another to access corporate information.
@@ -394,7 +392,8 @@ References:	https://serverfault.com/questions/677633/how-can-i-disable-specific-
     including revoking access for those that no longer perform that role.
 
     Reference: https://owasp.org/www-community/Access_Control
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <h3>END</h3>
 
 
