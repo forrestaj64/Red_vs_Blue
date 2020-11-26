@@ -1,22 +1,21 @@
 
 <h1>Capstone Engagement</h1>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 
 <h1>Assessment, Analysis, and Hardening of a Vulnerable System</h1>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
-
 <h2>Table of Contents</h2>
 
-    1 Network Topology
+    1. Network Topology
 
-    2 Red Team: Security Assessment
+    2. Red Team: Security Assessment
 
-    3 Blue Team: Log Analysis and Attack Characterization
+    3. Blue Team: Log Analysis and Attack Characterization
 
-    4 Hardening: Proposed Alarms and Mitigation Strategies
+    4. Hardening: Proposed Alarms and Mitigation Strategies
+
 <p>&nbsp;</p>
 <h2>Section 1: Network Topology</h2>
 <p>&nbsp;</p>
@@ -247,8 +246,10 @@ Kibana Search
     
     however we then need to specify rule chains for permitted services from and to 
     authorised addresses or subnets.
+    
+....
 
-Reference:
+    Reference:
     https://meterpreter.org/how-to-prevent-port-scan-in-linux/
 
 
@@ -287,11 +288,14 @@ Reference:
     We then need to configure our applications to use the certificate. 
 
     This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
+    
+....
 
 References:	
-    https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
-
-    https://ubuntu.com/server/docs/security-certificates
+   
+   https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
+    
+   https://ubuntu.com/server/docs/security-certificates
 
 
 <h4>Alarm </h4>
@@ -318,9 +322,12 @@ References:
 
     Also, after a failed login attempt we should prompt the user to answer a secret question.
     This would prevent even a known password being used at this time.
+    
+....
 
 Reference:
-    https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
+
+   https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
 
 
 <h4>Alarm</h4>
@@ -352,9 +359,12 @@ Reference:
     - allow outgoing connections to workstation IP
 
     iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
+    
+....
 
 Reference: 
-    https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-IP-Address-In-IPTables
+   
+   https://help.serversaustralia.com.au/s/article/How-To-Whitelist-An-IP-Address-In-IPTables
 
 
 
@@ -386,10 +396,14 @@ Reference:
         deny from all
         </Files>
  
+ ....
  
 References:	
+
     https://serverfault.com/questions/677633/how-can-i-disable-specific-file-type-uploads-globally-in-apache
+    
     http://www.htaccess-guide.com/  
+    
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h3>IMPORTANT</h3>
