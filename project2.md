@@ -15,23 +15,27 @@ This document contains the following sections:
 Network Topology
 
 Network
-Address Range:
-192.168.1.0/
-Netmask:255.255.255.
-Gateway:192.168.1.
+Address Range: 192.168.1.0/24
+Netmask:255.255.255.0
+Gateway:192.168.1.1
+
 Machines
-IPv4: 192.168.1.
-OS: Linux
-Hostname:Capstone
-IPv4: 192.168.1.
-OS: Linux
-Hostname: ELK
-IPv4: 192.168.1.
-OS: Kali Linux
-Hostname: Kali
-IPv4: 192.168.1.
-OS: Windows 10 Pro
-Hostname: Jump Host
+
+    IPv4: 192.168.1.105
+    OS: Linux
+    Hostname:Capstone
+
+    IPv4: 192.168.1.100
+    OS: Linux
+    Hostname: ELK
+
+    IPv4: 192.168.1.90
+    OS: Kali Linux
+    Hostname: Kali
+
+    IPv4: 192.168.1.
+    OS: Windows 10 Pro
+    Hostname: Jump Host
 
 Network Topology
 
@@ -243,30 +247,27 @@ System Hardening
 IP whitelisting; setting configuration on the host to control access could be done using
 an iptables rule set that allows requests and responses only from and to a listed IP.
 
-# whitelist IP address 192.168.0.
+Whitelist IP address 10.25.44.23
+- allow incoming connections from workstation IP
 
-# Allow incoming connections from 192.168.0.
+iptables -A INPUT -s 10.25.44.23 -j ACCEPT.
 
-iptables -A INPUT -s 192.168.0.123 -j ACCEPT.
+- allow outgoing connections to workstation IP
 
-# Allow outgoing connections to 192.168.0.
-
-iptables -A OUTPUT -d 192.168.0.1 -j ACCEPT
+iptables -A OUTPUT -d 10.25.44.23 -j ACCEPT
 
 Alarm 
 Mitigation: Identifying Reverse Shell Uploads
 
-Setting an alarm -assuming the upload is rare, we should alert on every http PUT
-request. Where uploads are routine, every http PUT request from an unauthorised IP
-address should alarm. We can set an alarm that targets specific file types, being those that are not normal
-for the shared folder. A baseline of normal activity and a threshold of normal times 2 would be a
-reasonable threshold at which to activate this alarm. For .php files, we should alert
-for every attempt; set threshold at 1.
+Setting an alarm -assuming the upload is rare, we should alert on every http PUT request. 
+Where uploads are routine, every http PUT request from an unauthorised IP address should alarm.
+We can set an alarm that targets specific file types, being those that are not normal for the shared folder. 
+A baseline of normal activity and a threshold of normal times 2 would be a reasonable threshold at which to activate this alarm.
+For .php files, we should alert for every attempt; set threshold at 1.
 
 System Hardening
 We can use specific local configuration to extend the functionality of Apache.
-Placing a configured .htaccess file in a web server directory will affect all files,
-folders and sub-directories.
+Placing a configured .htaccess file in a web server directory will affect all files, folders and sub-directories.
 Specifically to deny a .php file to be run we insert this configuration block into our .htaccess file
 
 <Files *.php>
