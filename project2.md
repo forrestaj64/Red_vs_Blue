@@ -10,15 +10,15 @@
 
 <h2>Table of Contents</h2>
 
-    01 Network Topology
+    1 Network Topology
 
-    02 Red Team: Security Assessment
+    2 Red Team: Security Assessment
 
-    03 Blue Team: Log Analysis and Attack Characterization
+    3 Blue Team: Log Analysis and Attack Characterization
 
-    04 Hardening: Proposed Alarms and Mitigation Strategies
+    4 Hardening: Proposed Alarms and Mitigation Strategies
 <p>&nbsp;</p>
-<h2>Network Topology</h2>
+<h2>Section 1: Network Topology</h2>
 <p>&nbsp;</p>
 <h4>Network Topology Diagram</h4>
 
@@ -42,7 +42,7 @@ IPv4 | OS | Hostname
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h1><- RED TEAM -></h1>
+<h2>Section 2: RED TEAM </h2>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
@@ -66,7 +66,7 @@ Jump Host | 192.168.1.1 | Jump Host; 2179/tcp open vmrdp
 The assessment uncovered the following **critical** vulnerabilities in the target:
 
 <h4>Vulnerability 1<h4>
-**CVE 2007-5461**
+<b>CVE 2007-5461</b>
 
     Description:
     Apache Tomcat -'WebDAV' Remote File Disclosure
@@ -76,7 +76,7 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
 
 
 <h4>Vulnerability 2</h4>
-**CVE 2017-15715**
+<b>CVE 2017-15715</b>
 
     Description:
 
@@ -89,7 +89,7 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
 
 
 <h4>Vulnerability 3</h4>
-**CWE 521: Weak Password**
+<b>CWE 521: Weak Password</b>
 
     Description:
 
@@ -101,7 +101,7 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
 
 
 <h4>Vulnerability 4</h4>
-**CWE 307: Improper restriction of excessive authentication attempts**
+<b>CWE 307: Improper restriction of excessive authentication attempts</b>
 
     Description:
 
@@ -164,7 +164,7 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h1><- BLUE TEAM -> </h1>
+<h2>Section 3: BLUE TEAM </h2>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Log Analysis and Attack Characterization</h2>
@@ -209,7 +209,8 @@ Kibana Search
     ● Successful requests were made for the files passwd.dav and shell.php
 
 
-
+<h2>Section 4: Hardening </h2>
+<p>&nbsp;</p>
 <h2>Proposed Alarms and Mitigation Strategies - Blue Team </h2>
 
 <h4>Alarm </h4>
