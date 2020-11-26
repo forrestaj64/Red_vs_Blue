@@ -172,9 +172,10 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
 
 <h4>Analysis: Identifying the Port Scan</h4>
 
-![Port Scan](/Images/PortScan.png)
+![Port Scan Graph](/Images/PortScanGraph.png)
+![Port Scan Events](/Images/PortScanEvents.png)
 
-    ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.90
+    ● The port scan occurred around 04:45 am; 200 packets were sent from source IP 192.168.1.90, agent.hostname:Kali
 
     ● The activity moved from port to port, indicating that this was a port scan
     
