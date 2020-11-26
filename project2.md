@@ -42,7 +42,7 @@ Machines
 
 Network Topology Diagram 
 
-</images/Network-Diagram.png >
+https://github.com/forrestaj64/Red_vs_Blue/blob/main/images/Network-Diagram.png
 
 
 --- RED TEAM ---
