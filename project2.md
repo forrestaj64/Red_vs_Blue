@@ -53,12 +53,12 @@ Hostname     IP Address      Role on Network
 
 ELK Server  192.168.1.100   ELK Server; 9200/tcp open wap-wsp
 
-
 Capstone    192.168.1.105 C apstone Corporate Server; 80/tcp open http
 
 Kali        192.168.1.90    Pen Test Station; 22/tcp open ssh
 
 Jump Host   192.168.1.1     Jump Host; 2179/tcp open vmrdp
+
 
 Vulnerability Assessment
 
@@ -88,41 +88,41 @@ Description: No password lockout policy in place
 
 Impact: An attacker is free to continually attempt to guess a password utilising brute force means.
 
-Exploitation: WebDAV file disclosure
+Exploitation 1: WebDAV file disclosure
 
-1 Tools & Processes
+1.1 Tools & Processes
 With the access credentials known, we authenticated via browser and the files in WebDAV were available.
 
-2 Achievements
+1.2 Achievements
     Detail of a secure password contained in passwd.dav exposed remotely.
     Apache version displayed.
 
-3 Exploitation Evidence
+1.3 Exploitation Evidence
     Screenshots </images/ >
 
-Exploitation: No account lockout
+Exploitation 2: No account lockout
 
-1 Tools & Processes
+2.1 Tools & Processes
     The vulnerability was exploited using hydra, a brute force password matching tool. A password list file, rockyou.txt, was downloaded and utilised.
 
-2 Achievements
+2.2 Achievements
     The password for the account of ashton was determined in short order.
     The account provides access to the “secret_folder”
 
-3 Exploitation Evidence
+2.3 Exploitation Evidence
     Screenshot of the hydra tool displaying the command executed and results: </images/ >
 
-Exploitation: Local File Inclusion
+Exploitation 3: Local File Inclusion
 
-1 Tools & Processes
+3.1 Tools & Processes
     The Metasploit framework was used to create .php packaged exploits, which were copied to the machine using curl.
 
     A local listener is set up. The php is executed and a session is opened.
 
-2 Achievements
+3.2 Achievements
     A remote session was achieved on the target machine. Reverse shell available
 
-3 Exploitation Evidence
+3.3 Exploitation Evidence
     Screenshots of exploits </images/ >
 
 Blue Team
@@ -308,5 +308,5 @@ IMPORTANT
 
     Reference: https://owasp.org/www-community/Access_Control
 
-End
+END
 
