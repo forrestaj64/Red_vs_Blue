@@ -129,7 +129,7 @@ Exploitation 1: WebDAV file disclosure
 
     1.3 Exploitation Evidence
     
-    ![WebDAV file disclosure](/Images/WebDav-file-disclosure)
+  ![WebDAV file disclosure](/Images/WebDav-file-disclosure)
     
 
 Exploitation 2: No account lockout
@@ -144,7 +144,7 @@ Exploitation 2: No account lockout
 
     2.3 Exploitation Evidence
     Screenshot of the hydra tool displaying the command executed and results:
-    ![No account lockout](/Images/No-account-lockout)
+  ![No account lockout](/Images/No-account-lockout)
     
 
 Exploitation 3: Local File Inclusion
@@ -160,8 +160,8 @@ Exploitation 3: Local File Inclusion
 
     3.3 Exploitation Evidence
     Screenshots of exploits 
-    ![(i) Local File Inclusion](/Images/LFI-1.png)
-    ![(ii) Local File Inclusion](/Images/LFI-2.png)
+  ![(i) Local File Inclusion](/Images/LFI-1.png)
+  ![(ii) Local File Inclusion](/Images/LFI-2.png)
     
 
 
