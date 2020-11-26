@@ -279,7 +279,6 @@ System Hardening
     This will also make the application traffic run with a secure protocol; https with SSL/TLS encryption
 
 References:	https://www.thegeekdiary.com/how-to-audit-file-access-on-linux/
-
             https://ubuntu.com/server/docs/security-certificates
 
 
@@ -388,4 +387,5 @@ IMPORTANT
     Reference: https://owasp.org/www-community/Access_Control
 
 END
+
 
