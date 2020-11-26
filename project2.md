@@ -42,8 +42,6 @@ Machines
 
 Network Topology Diagram 
 
-https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/Network-Diagram.png
-
 ![Network Diagram](/Images/Network-Diagram.png)
 
 
@@ -130,7 +128,9 @@ Exploitation 1: WebDAV file disclosure
     Apache version displayed.
 
     1.3 Exploitation Evidence
-    Screenshots <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/WebDav-file-disclosure >
+    
+    ![WebDAV file disclosure](/Images/WebDav-file-disclosure)
+    
 
 Exploitation 2: No account lockout
 
@@ -144,7 +144,8 @@ Exploitation 2: No account lockout
 
     2.3 Exploitation Evidence
     Screenshot of the hydra tool displaying the command executed and results:
-    <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/No-account-lockout >
+    ![No account lockout](/Images/No-account-lockout)
+    
 
 Exploitation 3: Local File Inclusion
 
@@ -159,8 +160,9 @@ Exploitation 3: Local File Inclusion
 
     3.3 Exploitation Evidence
     Screenshots of exploits 
-    <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/LFI-1.png>
-    <https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/LFI-2.png>
+    ![(i) Local File Inclusion](/Images/LFI-1.png)
+    ![(ii) Local File Inclusion](/Images/LFI-2.png)
+    
 
 
 --- BLUE TEAM ---
@@ -171,7 +173,7 @@ Log Analysis and Attack Characterization
 
 Analysis: Identifying the Port Scan
 
-</images/PortScan.png >
+![Port Scan](/Images/PortScan.png)
 
     ● The port scan occurred around 04:45 am; 377 packets were sent from source IP 192.168.1.
 
@@ -180,7 +182,7 @@ Analysis: Identifying the Port Scan
 
 Analysis: Finding the Request for the Hidden Directory
 
-<https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/HiddenDir.png >
+![Request for the Hidden Directory](/Images/HiddenDir.png)
 
     ● There were 2 requests at 10:59 on Nov 17
 
@@ -201,7 +203,7 @@ Kibana Search
 
 source.ip : 192.168.1.90 and http.response.status_code : 200 and url.full : "http://192.168.1.105/webdav/"
 
-<https://github.com/forrestaj64/Red_vs_Blue/blob/main/Images/WebDAV-connection.png >
+![The WebDAV Connection](/Images/WebDAV-connection.png)
 
     ● Requests made to this directory; count = 30
     
