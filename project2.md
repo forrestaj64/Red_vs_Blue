@@ -133,13 +133,16 @@ The assessment uncovered the following **critical** vulnerabilities in the targe
 
     2.2 Achievements
     The password for the account of ashton was determined in short order.
-    The account provides access to the “secret_folder”
+    The account provides access to the “secret_folder” and flag.txt
 
     2.3 Exploitation Evidence
     
-    Screenshot of the hydra tool displaying the command executed and results:
+    Screenshots of flag.txt and the hydra tool, displaying the command executed and results:
     
+  ![flag](/Images/flag.png)
+  
   ![No account lockout](/Images/No-account-lockout.png)
+  
     
 
 <h4>Exploitation 3: Local File Inclusion</h4>
