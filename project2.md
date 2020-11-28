@@ -4,6 +4,9 @@
 
 <h1>Assessment, Analysis, and Hardening of a Vulnerable System</h1>
 <p>&nbsp;</p>
+<b>Goals:</b> This project is a report on recent lab-based activities of both an offensive security role (Red Team),
+pentesting a server, as well as viewing attacks from a defensive security point-of-view (Blue Team).
+
 <p>&nbsp;</p>
 
 <h2>Table of Contents</h2>
