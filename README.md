@@ -1,2 +1,3 @@
 # Red_vs_Blue
-Red vs Blue Project
+Project II from USYD Cybersecurity Bootcamp
+
